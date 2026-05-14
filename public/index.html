@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Letter Game</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Letter Game</h1>
+    <div id="room-pill" class="hidden"></div>
+  </header>
+
+  <main id="app">
+    <!-- LOBBY ENTRY -->
+    <section id="screen-entry" class="screen">
+      <div class="card">
+        <h2>Join the game</h2>
+        <label>Your name
+          <input id="entry-name" maxlength="20" placeholder="e.g. Alex" />
+        </label>
+
+        <div class="two-col">
+          <div>
+            <h3>Create a room</h3>
+            <label>Rounds
+              <select id="entry-rounds">
+                <option>3</option>
+                <option selected>5</option>
+                <option>7</option>
+                <option>10</option>
+              </select>
+            </label>
+            <button id="btn-create" class="primary">Create room</button>
+          </div>
+          <div>
+            <h3>Join a room</h3>
+            <label>Room code
+              <input id="entry-code" maxlength="4" placeholder="ABCD" />
+            </label>
+            <button id="btn-join" class="primary">Join</button>
+          </div>
+        </div>
+        <p class="err" id="entry-err"></p>
+      </div>
+    </section>
+
+    <!-- LOBBY -->
+    <section id="screen-lobby" class="screen hidden">
+      <div class="card">
+        <h2>Lobby</h2>
+        <p>Share this room code with friends: <span id="lobby-code" class="big-code"></span></p>
+        <h3>Players</h3>
+        <ul id="lobby-players" class="player-list"></ul>
+        <p id="lobby-info" class="muted">First player picks the first letter. The picker rotates each round.</p>
+        <button id="btn-start" class="primary hidden">Start game</button>
+      </div>
+    </section>
+
+    <!-- PICKING -->
+    <section id="screen-picking" class="screen hidden">
+      <div class="card">
+        <h2>Round <span id="pick-round"></span> / <span id="pick-total"></span></h2>
+        <p id="pick-info"></p>
+        <div id="letter-grid" class="letter-grid hidden"></div>
+        <button id="btn-random" class="primary hidden">Pick random letter</button>
+      </div>
+    </section>
+
+    <!-- PLAYING -->
+    <section id="screen-playing" class="screen hidden">
+      <div class="card">
+        <div class="play-header">
+          <div>Round <span id="play-round"></span> / <span id="play-total"></span></div>
+          <div class="letter-badge" id="play-letter">A</div>
+          <div class="timer" id="play-timer">60</div>
+        </div>
+        <form id="play-form" class="categories-form"></form>
+        <button id="btn-submit" class="primary">Submit</button>
+        <p class="muted" id="play-status"></p>
+        <div id="live-answers" class="live-answers hidden">
+          <h3>Submitted answers</h3>
+          <div class="live-answers-table-wrap">
+            <table id="live-answers-table"></table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVEAL -->
+    <section id="screen-reveal" class="screen hidden">
+      <div class="card wide">
+        <h2>Round results — letter <span id="reveal-letter"></span></h2>
+        <div class="reveal-table-wrap">
+          <table id="reveal-table"></table>
+        </div>
+        <h3>Standings</h3>
+        <ul id="reveal-standings" class="standings"></ul>
+        <button id="btn-next" class="primary hidden">Next round</button>
+        <p class="muted" id="reveal-info"></p>
+      </div>
+    </section>
+
+    <!-- GAME OVER -->
+    <section id="screen-over" class="screen hidden">
+      <div class="card">
+        <h2>Game over</h2>
+        <ol id="over-standings" class="standings final"></ol>
+        <button id="btn-again" class="primary hidden">Play again</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/client.js"></script>
+</body>
+</html>
